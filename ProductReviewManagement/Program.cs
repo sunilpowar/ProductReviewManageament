@@ -19,7 +19,7 @@ namespace ProductReviewManagement
             {
                 while (true)
                 {
-                    Console.WriteLine("\nChoose an option \n0. Exit \n1. Add Product Review To List \n2. Show All Product Reviews");
+                    Console.WriteLine("\nChoose an option \n0. Exit \n1. Add Product Review To List \n2. Show All Product Reviews \n3. Retrieve Top Three Rating Records");
                     int option = Convert.ToInt32(Console.ReadLine());
                     switch (option)
                     {
@@ -32,7 +32,9 @@ namespace ProductReviewManagement
                         case 2:
                             ProductReviewManager.IterateOverList(productList);
                             break;
-                       
+                        case 3:
+                            ProductReviewManager.RetrieveTopThreeRatingsRecord(productList);
+                            break;
                         default:
                             Console.WriteLine("Please choose the correct option");
                             continue;
