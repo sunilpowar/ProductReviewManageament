@@ -137,5 +137,22 @@ namespace ProductReviewManagement
                 Console.WriteLine("No Products Review Added In The List");
             }
         }
+
+        //UC6 - Method to skip top 5 records retrieve other records using LINQ
+        public static List<ProductReview> SkipTopFiveRecords(List<ProductReview> products)
+        {
+            if (products != null)
+            {
+                var resProductList = (from p in products orderby p.Rating descending select p).Skip(5).ToList();
+                Console.WriteLine("Printing Records By Skipping Top 5 Records");
+                IterateOverList(resProductList);
+                return resProductList;
+            }
+            else
+            {
+                Console.WriteLine("Products Reviews not found In The List");
+                return default;
+            }
+        }
     }
 }
