@@ -251,5 +251,24 @@ namespace ProductReviewManagement
                 Console.WriteLine("No Products Review Added In The List");
             }
         }
+
+        //UC12 - Method to retreive records from datatable of particular user id order by rating
+        public static void GetRecordsBasedOnUserId(List<ProductReview> products, int userId)
+        {
+            if (products != null && userId < 12)
+            {
+                DataTable dataTable = CreateDataTableAndAddValues(products);
+                var resRows = (from table in dataTable.AsEnumerable() where table.Field<int>("UserId") == userId orderby table.Field<double>("Rating") select table).ToList();
+                Console.WriteLine($"ProductId \tUserId \t\tRating  \tReview    \tIsLike");
+                foreach (var row in resRows)
+                {
+                    Console.WriteLine($"{row["ProductId"]} \t\t{row["UserId"]} \t\t{row["Rating"]}  \t\t{row["Review"]}    \t{row["IsLike"]}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No Products Review Found");
+            }
+        }
     }
 }
