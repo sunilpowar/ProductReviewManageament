@@ -68,10 +68,9 @@ namespace ProductReviewManagement
             }
         }
 
-        //UC2 - Method to retrieve top 3 records from  the list based on highest rating
+        //UC2 - Method to retrieve top 3 records from  the list based on highest rating using LINQ
         public static List<ProductReview> RetrieveTopThreeRatingsRecord(List<ProductReview> products)
         {
-            //Using Linq to sort product list in descending order and take first 3 elements
             if (products != null)
             {
                 var productRating = products.OrderByDescending(p => p.Rating).Take(3).ToList();
@@ -103,7 +102,7 @@ namespace ProductReviewManagement
             }
         }
 
-        //UC4 - Method to retrieve count of review by product id from the list
+        //UC4 - Method to retrieve count of review by product id from the list using LINQ
         public static void RetrieveProductIdCount(List<ProductReview> products)
         {
             if (products != null)
@@ -121,7 +120,7 @@ namespace ProductReviewManagement
             }
         }
 
-        //UC5 - Method to retrieve only productId and review from the list for all records
+        //UC5 - Method to retrieve only productId and review from the list for all records using LINQ
         public static void RetrieveProductIdAndReview(List<ProductReview> products)
         {
             if (products != null)
@@ -167,6 +166,35 @@ namespace ProductReviewManagement
             }
             else
                 Console.WriteLine("Products Review not found In The List");
+        }
+
+        //UC8 - Method to create data table and add values
+        public static DataTable CreateDataTableAndAddValues(List<ProductReview> products)
+        {
+            if (products != null)
+            {
+                DataTable dataTable = new DataTable();
+                //Adding columns to data table and their type
+                dataTable.Columns.Add("ProductId", typeof(int));
+                dataTable.Columns.Add("UserId", typeof(int));
+                dataTable.Columns.Add("Rating", typeof(double));
+                dataTable.Columns.Add("Review", typeof(string));
+                dataTable.Columns.Add("IsLike", typeof(bool));
+
+                //Adding values to datatable from the list
+                foreach (var data in products)
+                {
+                    dataTable.Rows.Add(data.ProductId, data.UserId, data.Rating, data.Review, data.IsLike);
+                }
+                Console.WriteLine("Successfully added values to datatable");
+                return dataTable;
+            }
+            else
+            {
+                Console.WriteLine("Products Reviews not found In The List");
+                return default;
+            }
+
         }
     }
 }
